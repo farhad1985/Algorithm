@@ -10,20 +10,37 @@ class QuickUnion {
         }
     }
     
-    func isConnected(p: Int, q: Int) -> Bool {
-        return ids[q] == p
+    func isConnected(p: Int, q: Int) {
+        let i = root(i: p)
+        let j = root(i: q)
+        if i == j {
+            print("\(p) is connected to \(q)")
+        } else {
+            print("\(p) is not connected to \(q)")
+        }
     }
     
     func union(p: Int, q: Int) {
-        if isConnected(p: p, q: q) {
-            print("\(p) is Connected to \(q)")
+        let i = root(i: p)
+        let j = root(i: q)
+        
+        if i == j {
+            print("\(p) is connected to \(q)")
         } else {
-            ids[q] = p
+            ids[i] = j
         }
     }
     
     func printIds() {
         print(ids)
+    }
+    
+    private func root(i: Int) -> Int {
+        var j = i
+        while j != ids[j] {
+            j = ids[j]
+        }
+        return j
     }
 }
 
@@ -39,4 +56,4 @@ qu.union(p: 0, q: 5)
 qu.union(p: 5, q: 6)
 qu.union(p: 3, q: 4)
 
-qu.printIds()
+qu.isConnected(p: 4, q: 5)
